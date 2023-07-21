@@ -38,7 +38,7 @@ server {
     await writeFileAsync(filePath, nginxConfig);
 
     // Run Certbot command to obtain SSL certificate using async/await
-    const certbotCommand = `sudo certbot certonly --nginx -d ${site_name} --email webmaster@${site_name} --agree-tos`;
+    const certbotCommand = `sudo certbot certonly --nginx -d ${site_name} --m webmaster@${site_name} --agree-tos --force-renewal`;
     await execAsync(certbotCommand);
 
     res.status(200).send(`Nginx configuration file for ${site_name} generated, saved, and SSL certificate obtained.`);
