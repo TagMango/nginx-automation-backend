@@ -19,7 +19,7 @@ app.post('/generate_nginx_config', async (req, res) => {
 
   const nginxConfig = `
 server {
-    server_name ${site_name}; # Replace with your desired CDN domain
+    server_name www.${site_name} ${site_name}; # Replace with your desired CDN domain
 
     location / {
         proxy_pass ${origin_location};
@@ -38,7 +38,7 @@ server {
     await writeFileAsync(filePath, nginxConfig);
 
     // Run Certbot command to obtain SSL certificate using async/await
-    const certbotCommand = `sudo certbot --nginx -d ${site_name} -m webmaster@${site_name} --agree-tos --force-renewal`;
+    const certbotCommand = `sudo certbot --nginx -d ${site_name} -d www.${site_name} -m webmaster@${site_name} --cert-name  ${site_name} --redirect --agree-tos --force-renewal`;
     await execAsync(certbotCommand);
 
     res.status(200).send(`Nginx configuration file for ${site_name} generated, saved, and SSL certificate obtained.`);
