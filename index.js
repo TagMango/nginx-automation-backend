@@ -51,10 +51,10 @@ app.post('/generate_caddy_config', async (req, res) => {
   const { site_name, origin_location, origin_host } = req.body;
 
   const nginxConfig = 
-`@app {
+`@${site_name} {
     host ${site_name} www.${site_name}
 }
-reverse_proxy @app ${origin_location} {
+reverse_proxy @${site_name} ${origin_location} {
     header_up Host ${origin_host}
 }`;
 
