@@ -72,6 +72,8 @@ reverse_proxy @www.${site_name} ${origin_location} {
   try {
     // Use async/await with promisified fs.writeFile
     await writeFileAsync(filePath, nginxConfig);
+    await execAsync('sudo caddy reload --config /home/ubuntu/Caddyfile');
+
     res.status(200).send(`Nginx configuration file for ${site_name} generated, saved, and SSL certificate obtained.`);
   } catch (err) {
     console.error(err);
