@@ -9,7 +9,7 @@ const writeFileAsync = promisify(fs.writeFile);
 const execAsync = promisify(exec);
 
 const app = express();
-const nginxConfigPath = '/home/ubuntu/enabled_sites';
+const nginxConfigPath = '/Users/tagmango/nginx-automator';
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -50,14 +50,13 @@ server {
 app.post('/generate_caddy_config', async (req, res) => {
   const { site_name, origin_location, origin_host } = req.body;
 
-  const nginxConfig = `
-  @app {
+  const nginxConfig = 
+`@app {
     host ${site_name} www.${site_name}
 }
 reverse_proxy @app ${origin_location} {
     header_up Host ${origin_host}
-}
-  `;
+}`;
 
   const fileName = `${site_name}`;
   const filePath = path.join(nginxConfigPath, fileName);
