@@ -52,11 +52,19 @@ app.post('/generate_caddy_config', async (req, res) => {
 
   const nginxConfig = 
 `@${site_name} {
-    host ${site_name} www.${site_name}
+    host ${site_name} 
 }
 reverse_proxy @${site_name} ${origin_location} {
     header_up Host ${origin_host}
-}`;
+}
+
+@www.${site_name} {
+    host www.${site_name}
+}
+reverse_proxy @www.${site_name} ${origin_location} {
+    header_up Host ${origin_host}
+}
+`;
 
   const fileName = `${site_name}`;
   const filePath = path.join(nginxConfigPath, fileName);
