@@ -9,7 +9,7 @@ const writeFileAsync = promisify(fs.writeFile);
 const execAsync = promisify(exec);
 
 const app = express();
-const nginxConfigPath = '/Users/tagmango/nginx-automator';
+const nginxConfigPath = '/home/ubuntu/enabled_sites';
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
